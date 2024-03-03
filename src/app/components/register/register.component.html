@@ -1,0 +1,43 @@
+<form [formGroup]="registerForm" class="border p-3 rounded-3">
+  <!-- Form fields -->
+  
+  <div class="row">
+    <div class="col mb-3">
+      <label for="username" class="form-label">User Name</label>
+      <input type="text" class="form-control" id="username" formControlName="username" />
+      <div class="form-text text-danger" *ngIf="UserName?.errors?.['required'] && (UserName?.touched || UserName?.dirty)">User Name is required.</div>
+      <div class="form-text text-danger" *ngIf="UserName?.errors?.['minlength'] && (UserName?.touched || UserName?.dirty)">User Name is too short.</div>
+      <div class="form-text text-danger" *ngIf="UserName?.errors?.['pattern'] && (UserName?.touched || UserName?.dirty)">User Name should start with alphabet.</div>
+    </div>
+  </div><div class="row">
+    <div class="col mb-3">
+      <label for="email" class="form-label">Email Address</label>
+      <input type="email"class="form-control" id="email" formControlName="email">
+        <div class="form-text text-danger" *ngIf=" Email?.errors?.['required'] && (Email?.touched || Email?.dirty)">Email is required.</div>
+        <div class="form-text text-danger" *ngIf=" Email?.errors?.['email'] && (Email?.touched || Email?.dirty)">Email is invalid.</div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col mb-3">
+      <label for="pwd" class="form-label">Password</label>
+      <input type="password" class="form-control" id="pwd" formControlName="pwd"/>
+      <div class="form-text text-danger" *ngIf=" PWD?.errors?.['required'] && (PWD?.touched || PWD?.dirty)">Password is required.</div>
+        
+      <div class="form-text text-danger" *ngIf=" PWD?.errors?.['minlength'] || PWD?.errors?.['maxlength']&& (PWD?.touched || PWD?.dirty)">Password should be at least 6 to max 15 character long.</div>
+    </div>
+  
+  </div>
+  
+  <!-- Repeat for other form fields -->
+  
+  <div class="row">
+    <div class="col-6 offset-3">
+      <div class="d-grid">
+        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+  
+  <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha"></ngx-recaptcha2>
+</form>
